@@ -10,6 +10,7 @@ SRCS = main.c \
        mandelbrot.c \
        julia.c \
        events.c \
+       color.c \
        utils.c
 
 OBJS = $(SRCS:.c=.o)
