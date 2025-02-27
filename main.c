@@ -8,7 +8,6 @@ int	main(int argc, char **argv)
 	// Parse des arguments
 	if (parse_args(&data, argc, argv) != 0)
 		return (1);
-
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 	{
@@ -28,19 +27,14 @@ int	main(int argc, char **argv)
 		perror("mlx_new_image failed");
 		return (1);
 	}
-	data.img_addr = mlx_get_data_addr(data.img_ptr,
-			&data.bits_per_pixel,
-			&data.line_length,
-			&data.endian);
-
+	data.img_addr = mlx_get_data_addr(data.img_ptr, &data.bits_per_pixel,
+			&data.line_length, &data.endian);
 	// Premier rendu
 	render(&data);
-
 	// Hooks
 	mlx_key_hook(data.win_ptr, key_hook, &data);
 	mlx_mouse_hook(data.win_ptr, mouse_hook, &data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, &data);
-
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

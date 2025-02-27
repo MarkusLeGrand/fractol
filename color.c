@@ -22,9 +22,7 @@ static int	hsv_to_rgb(double h, double s, double v)
 		r = v;
 		g = v;
 		b = v;
-		return ((int)(r * 255) << 16)
-			| ((int)(g * 255) << 8)
-			| (int)(b * 255);
+		return ((int)(r * 255) << 16) | ((int)(g * 255) << 8) | (int)(b * 255);
 	}
 	h = fmod(h, 1.0) * 6.0;
 	i = (int)h;
@@ -68,9 +66,7 @@ static int	hsv_to_rgb(double h, double s, double v)
 		g = p;
 		b = q;
 	}
-	return ((int)(r * 255) << 16)
-		| ((int)(g * 255) << 8)
-		| (int)(b * 255);
+	return ((int)(r * 255) << 16) | ((int)(g * 255) << 8) | (int)(b * 255);
 }
 
 /*
@@ -112,16 +108,13 @@ static int	get_color_hsv_simple(int iteration, int max_iter)
 ** Couleur HSV avec plusieurs "cycles" d'arc-en-ciel,
 ** et un offset de teinte (hue_offset) pour décaler la palette.
 */
-static int	get_color_hsv_cycles(int iteration,
-								 int max_iter,
-								 double hue_offset)
+static int	get_color_hsv_cycles(int iteration, int max_iter, double hue_offset)
 {
 	double	cycles;
 	double	h;
 
 	if (iteration >= max_iter)
 		return (0x000000);
-
 	cycles = 5.0; // 5 tours d'arc-en-ciel
 	h = ((double)iteration / (double)max_iter) * cycles;
 	h = fmod(h + hue_offset, 1.0);
@@ -134,11 +127,8 @@ static int	get_color_hsv_cycles(int iteration,
 ** iteration + 1 - log(log(|z|)) / log(2)
 ** => On obtient un "index" flottant pour adoucir les bandes.
 */
-static int	get_color_smooth(int iteration,
-							 int max_iter,
-							 double zr,
-							 double zi,
-							 double hue_offset)
+static int	get_color_smooth(int iteration, int max_iter, double zr, double zi,
+		double hue_offset)
 {
 	double	mag;
 	double	nu;
@@ -148,20 +138,16 @@ static int	get_color_smooth(int iteration,
 
 	if (iteration >= max_iter)
 		return (0x000000);
-
 	// Calcul de la magnitude finale
 	mag = sqrt(zr * zr + zi * zi);
 	if (mag < 1e-9)
 		mag = 1e-9;
-
 	// Continuous index
 	nu = log(log(mag) / log(2)) / log(2);
 	index = iteration + 1.0 - nu;
-
 	// Nombre de tours de hue
 	cycles = 3.0;
 	h = fmod((index / max_iter) * cycles + hue_offset, 1.0);
-
 	return (hsv_to_rgb(h, 1.0, 1.0));
 }
 
@@ -174,12 +160,8 @@ static int	get_color_smooth(int iteration,
 **   3 = smooth coloring.
 ** On passe zr, zi, hue_offset pour le mode 3 (smooth) ou mode 2 (offset).
 */
-int	get_color(int iteration,
-			  int max_iter,
-			  int color_mode,
-			  double zr,
-			  double zi,
-			  double hue_offset)
+int	get_color(int iteration, int max_iter, int color_mode, double zr, double zi,
+		double hue_offset)
 {
 	if (color_mode == 0)
 		return (get_color_polynomial(iteration, max_iter));

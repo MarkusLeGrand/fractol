@@ -2,8 +2,8 @@
 
 int	julia(double zr, double zi, t_data *data)
 {
-	double	tmp;
-	int		i;
+	double tmp;
+	int i;
 
 	i = 0;
 	while ((zr * zr + zi * zi) <= 4.0 && i < data->max_iter)

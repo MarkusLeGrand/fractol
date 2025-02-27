@@ -2,10 +2,10 @@
 
 int	mandelbrot(double cr, double ci, t_data *data)
 {
-	double	zr;
-	double	zi;
-	double	tmp;
-	int		i;
+	double zr;
+	double zi;
+	double tmp;
+	int i;
 
 	zr = 0.0;
 	zi = 0.0;
