@@ -1,4 +1,0 @@
-Documents/lkantzer42/fractol$ export DISPLAY=$(ip route show default | awk '/default/ {print $3}'):0
-Documents/lkantzer42/fractol$ export LIBGL_ALWAYS_INDIRECT=1
-Documents/lkantzer42/fractol$ echo $DISPLAY
-
